@@ -1,4 +1,6 @@
 FROM node:22-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
 FROM base AS pruner
@@ -26,10 +28,9 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/apps/gitfinder-hub/.next/standalone ./
-COPY --from=builder /app/apps/gitfinder-hub/.next/static ./apps/gitfinder-hub/.next/static
-COPY --from=builder /app/apps/gitfinder-hub/public ./apps/gitfinder-hub/public 2>/dev/null || true
+COPY --from=builder /app/apps/gitfinder-hub/.next/static ./apps/gitfinder-hub/.next/static/
 
-RUN mkdir -p /app/apps/gitfinder-hub/.next
+RUN mkdir -p /app/apps/gitfinder-hub/public /app/apps/gitfinder-hub/.next
 RUN chown -R nextjs:nodejs /app
 
 USER nextjs
