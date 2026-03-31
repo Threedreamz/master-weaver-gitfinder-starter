@@ -1,0 +1,12 @@
+{
+  "name": "gitfinder-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "build": "echo 'No build needed'",
+    "start": "node src/index.js"
+  },
+  "dependencies": {}
+}
