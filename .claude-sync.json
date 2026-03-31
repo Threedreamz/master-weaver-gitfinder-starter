@@ -1,0 +1,8 @@
+{
+  "ecosystem": "gitfinder",
+  "templates": [
+    "base",
+    "gitfinder"
+  ],
+  "overrides": {}
+}
