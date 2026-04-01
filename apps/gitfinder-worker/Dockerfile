@@ -2,8 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json ./
-COPY src/ ./src/
+COPY apps/gitfinder-worker/package.json ./
+COPY apps/gitfinder-worker/src/ ./src/
 
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 appuser
 RUN chown -R appuser:nodejs /app
