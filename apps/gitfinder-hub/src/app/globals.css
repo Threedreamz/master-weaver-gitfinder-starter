@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../";
 
 :root {
   --gf-accent: #3b82f6;
