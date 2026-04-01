@@ -57,9 +57,11 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)}
             </div>
+          ) : !repos || repos.length === 0 ? (
+            <OnboardingCard />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {(repos ?? []).slice(0, 8).map((repo) => (
+              {repos.slice(0, 8).map((repo) => (
                 <RepoCard key={repo.name} repo={repo} />
               ))}
             </div>
@@ -177,6 +179,42 @@ function ActionButton({ href, label, icon, desc, accent }: { href: string; label
         <div className="text-[11px] text-zinc-500">{desc}</div>
       </div>
     </a>
+  )
+}
+
+function OnboardingCard() {
+  return (
+    <div className="rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/30 p-8 text-center">
+      <div className="text-4xl mb-4">&#9095;</div>
+      <h3 className="text-base font-semibold text-zinc-200 mb-1">No repos registered yet</h3>
+      <p className="text-sm text-zinc-500 mb-6 max-w-xs mx-auto">
+        GitFinder needs to discover your ecosystem repos. Register them in{' '}
+        <code className="text-xs bg-zinc-800 px-1 py-0.5 rounded text-zinc-300">ecosystem.json</code>{' '}
+        then trigger a scan.
+      </p>
+      <div className="space-y-3 text-left max-w-sm mx-auto mb-6">
+        <Step n={1} text="Open ecosystem.json in master-weaver-master" />
+        <Step n={2} text="Add your repos under the correct ecosystem block" />
+        <Step n={3} text="Trigger a scan to discover them" />
+      </div>
+      <a
+        href="/repos"
+        className="inline-flex items-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 hover:border-blue-500/40 transition-all px-5 py-2.5 text-sm font-medium text-blue-400"
+      >
+        &#9881; Scan &amp; Discover Repos
+      </a>
+    </div>
+  )
+}
+
+function Step({ n, text }: { n: number; text: string }) {
+  return (
+    <div className="flex items-start gap-3 text-sm">
+      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-800 text-zinc-400 text-[11px] font-bold flex items-center justify-center">
+        {n}
+      </span>
+      <span className="text-zinc-400">{text}</span>
+    </div>
   )
 }
 
